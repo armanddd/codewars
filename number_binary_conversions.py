@@ -20,3 +20,13 @@ def number_to_binary(nb):
     print(binary_array)
 
 # number_to_binary(90)
+
+
+def convert_to_base(n, base):
+    convertString = "0123456789ABCDEF"
+    if n < base:
+        return convertString[n]
+    else:
+        return convert_to_base(n // base, base) + convertString[n % base]
+    
+# print(convert_to_base(10, 2))
