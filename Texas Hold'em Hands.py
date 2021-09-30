@@ -2,6 +2,7 @@ def hand(hole_cards, community_cards):
     combined_cards = hole_cards + community_cards
     combined_cards = sortCards(combined_cards)
     print(combined_cards)
+#     print(isThreeOfAKind(combined_cards))
     return "nothing", ["2", "3", "4", "7", "8"]
 
 def sortCards(combined_cards):
@@ -55,21 +56,48 @@ def isStraightFlush(combined_cards):
             combined_cards[check_index + 1][-1] == combined_cards[check_index + 2][-1] and \
             combined_cards[check_index + 2][-1] == combined_cards[check_index + 3][-1] and \
             combined_cards[check_index + 3][-1] == combined_cards[check_index + 4][-1]:
-                return True
+            return True
         check_index += 1
     return False
 
 def isStraight(combined_cards):
-    combined_cards = changeHighCardsToNumbers(combined_cards)
     check_index = 0
     while check_index <= len(combined_cards) - 5:
         if  int(combined_cards[check_index][:-1]) - 1 == int(combined_cards[check_index + 1][:-1]) and \
             int(combined_cards[check_index + 1][:-1]) - 1 == int(combined_cards[check_index + 2][:-1]) and \
             int(combined_cards[check_index + 2][:-1]) - 1 == int(combined_cards[check_index + 3][:-1]) and \
             int(combined_cards[check_index + 3][:-1]) - 1 == int(combined_cards[check_index + 4][:-1]):
-                return True
+            return True
         check_index += 1
     return False
+
+def isFourOfAKind(combined_cards):
+    check_index = 0
+    while check_index <= len(combined_cards) - 4:
+        if  int(combined_cards[check_index][:-1]) == int(combined_cards[check_index + 1][:-1]) and \
+            int(combined_cards[check_index + 1][:-1]) == int(combined_cards[check_index + 2][:-1]) and \
+            int(combined_cards[check_index + 2][:-1]) == int(combined_cards[check_index + 3][:-1]):
+            return True    
+        check_index += 1
+    return False
+    
+def isThreeOfAKind(combined_cards):
+    check_index = 0
+    while check_index <= len(combined_cards) - 3:
+        if  int(combined_cards[check_index][:-1]) == int(combined_cards[check_index + 1][:-1]) and \
+            int(combined_cards[check_index + 1][:-1]) == int(combined_cards[check_index + 2][:-1]):
+            return True    
+        check_index += 1
+    return False
+
+def isFullHouse(combined_cards):
+    pass
+
+def isFlush(combined_cards):
+    pass
+
+
+    
         
     
     
