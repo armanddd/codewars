@@ -1,7 +1,23 @@
+hand_starting_index = []
+
 def hand(hole_cards, community_cards):
     combined_cards = hole_cards + community_cards
     combined_cards = sortCards(combined_cards)
+    
+    #     print(isFullHouse(combined_cards.copy()))
+    #     print(combined_cards)
+
+    if isStraightFlush(combined_cards):
+        combined_cards = removeColorFromCards(changeNumbersToHighCards(combined_cards)) 
+        return_string = "straight-flush"
+        return_list = combined_cards[0:5]
+        return (return_string, return_list)
     return "nothing", ["2", "3", "4", "7", "8"]
+
+def removeColorFromCards(combined_cards):
+    for idx, card in enumerate(combined_cards):
+        combined_cards[idx] = card[:-1]
+    return combined_cards
 
 def sortCards(combined_cards):
     combined_cards = changeHighCardsToNumbers(combined_cards)
@@ -43,6 +59,7 @@ def changeHighCardsToNumbers(combined_cards):
     return combined_cards
 
 def isStraightFlush(combined_cards):
+    global hand_starting_index
     check_index = 0
     while check_index <= len(combined_cards) - 5:
         if  int(combined_cards[check_index][:-1]) - 1 == int(combined_cards[check_index + 1][:-1]) and \
@@ -58,6 +75,7 @@ def isStraightFlush(combined_cards):
     return False
 
 def isStraight(combined_cards):
+    global hand_starting_index
     check_index = 0
     while check_index <= len(combined_cards) - 5:
         if  int(combined_cards[check_index][:-1]) - 1 == int(combined_cards[check_index + 1][:-1]) and \
@@ -69,6 +87,7 @@ def isStraight(combined_cards):
     return False
 
 def isFourOfAKind(combined_cards):
+    global hand_starting_index
     check_index = 0
     while check_index <= len(combined_cards) - 4:
         if  int(combined_cards[check_index][:-1]) == int(combined_cards[check_index + 1][:-1]) and \
@@ -79,6 +98,7 @@ def isFourOfAKind(combined_cards):
     return False
     
 def isThreeOfAKind(combined_cards):
+    global hand_starting_index
     check_index = 0
     while check_index <= len(combined_cards) - 3:
         if  int(combined_cards[check_index][:-1]) == int(combined_cards[check_index + 1][:-1]) and \
@@ -88,6 +108,7 @@ def isThreeOfAKind(combined_cards):
     return False
 
 def isPair(combined_cards):
+    global hand_starting_index
     check_index = 0
     while check_index <= len(combined_cards) - 2:
         if int(combined_cards[check_index][:-1]) == int(combined_cards[check_index + 1][:-1]):
@@ -96,6 +117,7 @@ def isPair(combined_cards):
     return False
 
 def isTwoPairs(combined_cards):
+    global hand_starting_index
     check_index = 0
     hasPair = False
     while check_index <= len(combined_cards) - 2:
@@ -118,6 +140,7 @@ def isTwoPairs(combined_cards):
         return False
     
 def isFlush(combined_cards):
+    global hand_starting_index
     colors = {"hearts": 0, "spades": 0, "diamonds": 0, "clubs": 0}
     for card in combined_cards:
         if card[-1] == "♦":
@@ -134,7 +157,7 @@ def isFlush(combined_cards):
     return False
 
 def isFullHouse(combined_cards):
-    #checks for three of a kind
+    global hand_starting_index
     hasThreeOfAKind = False
     check_index = 0
     while check_index <= len(combined_cards) - 3:
