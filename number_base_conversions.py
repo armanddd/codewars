@@ -1,7 +1,7 @@
 def binary_array_to_number(arr):
     nb = 0
     for number in arr:
-        nb = nb * 2 + digit
+        nb = nb * 2 + number
         print(nb)
 
 #binary_array_to_number([0, 1, 0, 1])
